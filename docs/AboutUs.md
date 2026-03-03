@@ -12,6 +12,17 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 ## Project team
 
 
+### Christopher Lu Zi Yang
+
+<img src="images/chrislzy2212.png" width="200px">
+
+[[homepage](http://www.comp.nus.edu.sg/~damithch)]
+[[github](https://github.com/chrislzy2212)]
+[[portfolio](team/johndoe.md)]
+
+* Role: Developer
+* Responsibilities : Testing
+
 ### Kim Siang
 
 <img src="images/kimsianglim.png" width="200px">
