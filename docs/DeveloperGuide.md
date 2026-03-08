@@ -307,9 +307,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  LockedIn shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  LockedIn deletes the person
 
     Use case ends.
 
@@ -321,7 +321,43 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. LockedIn shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Add Job URL**
+
+**Preconditions:**
+* User is logged in.
+* There is at least one existing job application in the system.
+
+**MSS**
+
+1.  User requests to list persons
+2.  LockedIn shows a list of persons
+3.  User requests to add a job URL to a specific job application in the list
+4.  LockedIn attaches the URL to the specific job application and displays a success message
+
+    Use case ends.
+
+**Extensions**
+
+
+* 3a. The given index is invalid.
+
+    * 3a1. LockedIn shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given URL is invalid.
+
+    * 3b1. LockedIn shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The given URL already exists for the specific job application.
+
+    * 3c1. LockedIn displays a message showing that the URL already exists.
 
       Use case resumes at step 2.
 
