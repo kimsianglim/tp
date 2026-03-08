@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICATION_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPLICATIONS;
@@ -23,8 +23,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.application.Address;
 import seedu.address.model.application.Application;
+import seedu.address.model.application.ApplicationDate;
 import seedu.address.model.application.Company;
-import seedu.address.model.application.Email;
 import seedu.address.model.application.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -41,12 +41,12 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_COMPANY + "COMPANY] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_APPLICATION_DATE + "APPLICATION_DATE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_APPLICATION_DATE + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_APPLICATION_SUCCESS = "Edited Application: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -98,11 +98,12 @@ public class EditCommand extends Command {
 
         Company updatedCompany = editApplicationDescriptor.getCompany().orElse(applicationToEdit.getCompany());
         Phone updatedPhone = editApplicationDescriptor.getPhone().orElse(applicationToEdit.getPhone());
-        Email updatedEmail = editApplicationDescriptor.getEmail().orElse(applicationToEdit.getEmail());
+        ApplicationDate updatedApplicationDate = editApplicationDescriptor.getApplicationDate().orElse(
+                applicationToEdit.getApplicationDate());
         Address updatedAddress = editApplicationDescriptor.getAddress().orElse(applicationToEdit.getAddress());
         Set<Tag> updatedTags = editApplicationDescriptor.getTags().orElse(applicationToEdit.getTags());
 
-        return new Application(updatedCompany, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Application(updatedCompany, updatedPhone, updatedApplicationDate, updatedAddress, updatedTags);
     }
 
     @Override
@@ -136,7 +137,7 @@ public class EditCommand extends Command {
     public static class EditApplicationDescriptor {
         private Company company;
         private Phone phone;
-        private Email email;
+        private ApplicationDate applicationDate;
         private Address address;
         private Set<Tag> tags;
 
@@ -149,7 +150,7 @@ public class EditCommand extends Command {
         public EditApplicationDescriptor(EditApplicationDescriptor toCopy) {
             setCompany(toCopy.company);
             setPhone(toCopy.phone);
-            setEmail(toCopy.email);
+            setApplicationDate(toCopy.applicationDate);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -158,7 +159,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(company, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(company, phone, applicationDate, address, tags);
         }
 
         public void setCompany(Company company) {
@@ -177,12 +178,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setApplicationDate(ApplicationDate applicationDate) {
+            this.applicationDate = applicationDate;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<ApplicationDate> getApplicationDate() {
+            return Optional.ofNullable(applicationDate);
         }
 
         public void setAddress(Address address) {
@@ -224,7 +225,7 @@ public class EditCommand extends Command {
             EditApplicationDescriptor otherEditApplicationDescriptor = (EditApplicationDescriptor) other;
             return Objects.equals(company, otherEditApplicationDescriptor.company)
                     && Objects.equals(phone, otherEditApplicationDescriptor.phone)
-                    && Objects.equals(email, otherEditApplicationDescriptor.email)
+                    && Objects.equals(applicationDate, otherEditApplicationDescriptor.applicationDate)
                     && Objects.equals(address, otherEditApplicationDescriptor.address)
                     && Objects.equals(tags, otherEditApplicationDescriptor.tags);
         }
@@ -234,7 +235,7 @@ public class EditCommand extends Command {
             return new ToStringBuilder(this)
                     .add("company", company)
                     .add("phone", phone)
-                    .add("email", email)
+                    .add("applicationDate", applicationDate)
                     .add("address", address)
                     .add("tags", tags)
                     .toString();
