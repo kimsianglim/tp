@@ -3,15 +3,12 @@ package seedu.address.testutil;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICATION_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
-
-import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditApplicationDescriptor;
 import seedu.address.model.application.Application;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Application.
@@ -34,9 +31,7 @@ public class ApplicationUtil {
         sb.append(PREFIX_ROLE + application.getRole().value + " ");
         sb.append(PREFIX_APPLICATION_DATE + application.getApplicationDate().value + " ");
         application.getUrl().ifPresent(url -> sb.append(PREFIX_URL + url.value + " "));
-        application.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+        sb.append(PREFIX_STATUS + application.getStatus().toString() + " ");
         return sb.toString();
     }
 
@@ -50,14 +45,7 @@ public class ApplicationUtil {
         descriptor.getApplicationDate().ifPresent(applicationDate ->
                 sb.append(PREFIX_APPLICATION_DATE).append(applicationDate.value).append(" "));
         descriptor.getUrl().ifPresent(url -> sb.append(PREFIX_URL).append(url.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
+        descriptor.getStatus().ifPresent(status -> sb.append(PREFIX_STATUS).append(status).append(" "));
         return sb.toString();
     }
 }

@@ -1,16 +1,13 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.model.application.Application;
 import seedu.address.model.application.ApplicationDate;
 import seedu.address.model.application.Company;
 import seedu.address.model.application.Role;
+import seedu.address.model.application.Status;
 import seedu.address.model.application.Url;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Application objects.
@@ -25,7 +22,7 @@ public class ApplicationBuilder {
     private Role role;
     private ApplicationDate applicationDate;
     private Optional<Url> url;
-    private Set<Tag> tags;
+    private Status status;
 
     /**
      * Creates a {@code ApplicationBuilder} with the default details.
@@ -35,7 +32,7 @@ public class ApplicationBuilder {
         role = new Role(DEFAULT_ROLE);
         applicationDate = new ApplicationDate(DEFAULT_APPLICATION_DATE);
         url = Optional.empty();
-        tags = new HashSet<>();
+        status = Status.DEFAULT;
     }
 
     /**
@@ -46,7 +43,7 @@ public class ApplicationBuilder {
         role = applicationToCopy.getRole();
         applicationDate = applicationToCopy.getApplicationDate();
         url = applicationToCopy.getUrl();
-        tags = new HashSet<>(applicationToCopy.getTags());
+        status = applicationToCopy.getStatus();
     }
 
     /**
@@ -58,10 +55,10 @@ public class ApplicationBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Application} that we are building.
+     * Sets the {@code Status} of the {@code Application} that we are building.
      */
-    public ApplicationBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+    public ApplicationBuilder withStatus(String status) {
+        this.status = Status.fromUserInput(status);
         return this;
     }
 
@@ -89,8 +86,13 @@ public class ApplicationBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns an {@code Application} object with the current builder state.
+     *
+     * @return a new {@code Application} instance with the configured values
+     */
     public Application build() {
-        return new Application(company, role, applicationDate, url, tags);
+        return new Application(company, role, applicationDate, url, status);
     }
 
 }

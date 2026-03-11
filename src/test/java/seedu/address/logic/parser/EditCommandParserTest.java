@@ -7,24 +7,24 @@ import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_APPLICATION_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ROLE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATUS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_URL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPLICATION_DATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICATION_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -41,13 +41,11 @@ import seedu.address.logic.commands.EditCommand.EditApplicationDescriptor;
 import seedu.address.model.application.ApplicationDate;
 import seedu.address.model.application.Company;
 import seedu.address.model.application.Role;
+import seedu.address.model.application.Status;
 import seedu.address.model.application.Url;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditApplicationDescriptorBuilder;
 
 public class EditCommandParserTest {
-
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -87,16 +85,10 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_ROLE_DESC, Role.MESSAGE_CONSTRAINTS); // invalid role
         assertParseFailure(parser, "1" + INVALID_APPLICATION_DATE_DESC, ApplicationDate.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + INVALID_URL_DESC, Url.MESSAGE_CONSTRAINTS); // invalid url
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS); // invalid status
 
         // invalid role followed by valid application date
         assertParseFailure(parser, "1" + INVALID_ROLE_DESC + APPLICATION_DATE_DESC_AMY, Role.MESSAGE_CONSTRAINTS);
-
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Application} being edited,
-        // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_COMPANY_DESC + INVALID_APPLICATION_DATE_DESC + VALID_URL_AMY
@@ -107,13 +99,13 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_APPLICATION;
-        String userInput = targetIndex.getOneBased() + ROLE_DESC_BOB + TAG_DESC_HUSBAND
-                + APPLICATION_DATE_DESC_AMY + URL_DESC_AMY + COMPANY_DESC_AMY + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + ROLE_DESC_BOB + STATUS_DESC_BOB
+                + APPLICATION_DATE_DESC_AMY + URL_DESC_AMY + COMPANY_DESC_AMY;
 
         EditApplicationDescriptor descriptor = new EditApplicationDescriptorBuilder().withCompany(VALID_COMPANY_AMY)
                 .withRole(VALID_ROLE_BOB).withApplicationDate(VALID_APPLICATION_DATE_AMY)
                 .withUrl(VALID_URL_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withStatus(VALID_STATUS_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -159,9 +151,9 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditApplicationDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        // status
+        userInput = targetIndex.getOneBased() + STATUS_DESC_AMY;
+        descriptor = new EditApplicationDescriptorBuilder().withStatus(VALID_STATUS_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -184,29 +176,21 @@ public class EditCommandParserTest {
 
         // mulltiple valid fields repeated
         userInput = targetIndex.getOneBased() + ROLE_DESC_AMY + URL_DESC_AMY + APPLICATION_DATE_DESC_AMY
-                + TAG_DESC_FRIEND + ROLE_DESC_AMY + URL_DESC_AMY + APPLICATION_DATE_DESC_AMY + TAG_DESC_FRIEND
-                + ROLE_DESC_BOB + URL_DESC_BOB + APPLICATION_DATE_DESC_BOB + TAG_DESC_HUSBAND;
+                + STATUS_DESC_AMY + ROLE_DESC_AMY + URL_DESC_AMY + APPLICATION_DATE_DESC_AMY
+                + STATUS_DESC_AMY
+                + ROLE_DESC_BOB + URL_DESC_BOB + APPLICATION_DATE_DESC_BOB + STATUS_DESC_BOB;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROLE, PREFIX_APPLICATION_DATE, PREFIX_URL));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROLE, PREFIX_APPLICATION_DATE,
+                        PREFIX_URL, PREFIX_STATUS));
 
         // multiple invalid values
         userInput = targetIndex.getOneBased() + INVALID_ROLE_DESC + INVALID_URL_DESC
-                + INVALID_APPLICATION_DATE_DESC + INVALID_ROLE_DESC + INVALID_URL_DESC
-                + INVALID_APPLICATION_DATE_DESC;
+                + INVALID_APPLICATION_DATE_DESC + INVALID_STATUS_DESC + INVALID_ROLE_DESC + INVALID_URL_DESC
+                + INVALID_APPLICATION_DATE_DESC + INVALID_STATUS_DESC;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROLE, PREFIX_APPLICATION_DATE, PREFIX_URL));
-    }
-
-    @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_APPLICATION;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
-
-        EditApplicationDescriptor descriptor = new EditApplicationDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROLE, PREFIX_APPLICATION_DATE,
+                        PREFIX_URL, PREFIX_STATUS));
     }
 }

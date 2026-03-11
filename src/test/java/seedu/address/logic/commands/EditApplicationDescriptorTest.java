@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPLICATION_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_BOB;
 
 import org.junit.jupiter.api.Test;
@@ -55,8 +55,8 @@ public class EditApplicationDescriptorTest {
         editedAmy = new EditApplicationDescriptorBuilder(DESC_AMY).withUrl(VALID_URL_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different tags -> returns false
-        editedAmy = new EditApplicationDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        // different status -> returns false
+        editedAmy = new EditApplicationDescriptorBuilder(DESC_AMY).withStatus(VALID_STATUS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 
@@ -67,8 +67,8 @@ public class EditApplicationDescriptorTest {
                 + editApplicationDescriptor.getCompany().orElse(null) + ", role="
                 + editApplicationDescriptor.getRole().orElse(null) + ", applicationDate="
                 + editApplicationDescriptor.getApplicationDate().orElse(null) + ", url="
-                + editApplicationDescriptor.getUrl().orElse(null) + ", tags="
-                + editApplicationDescriptor.getTags().orElse(null) + "}";
+                + editApplicationDescriptor.getUrl().orElse(null) + ", status="
+                + editApplicationDescriptor.getStatus().orElse(null) + "}";
         assertEquals(expected, editApplicationDescriptor.toString());
     }
 }

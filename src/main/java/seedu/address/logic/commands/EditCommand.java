@@ -4,16 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICATION_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPLICATIONS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -25,8 +22,8 @@ import seedu.address.model.application.Application;
 import seedu.address.model.application.ApplicationDate;
 import seedu.address.model.application.Company;
 import seedu.address.model.application.Role;
+import seedu.address.model.application.Status;
 import seedu.address.model.application.Url;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing application in the address book.
@@ -43,7 +40,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ROLE + "ROLE] "
             + "[" + PREFIX_APPLICATION_DATE + "APPLICATION_DATE] "
             + "[" + PREFIX_URL + "URL] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_STATUS + "STATUS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_ROLE + "Software Engineer Intern "
             + PREFIX_APPLICATION_DATE + "2025-12-22 "
@@ -104,9 +101,9 @@ public class EditCommand extends Command {
         Optional<Url> updatedUrl = editApplicationDescriptor.getUrl().isPresent()
                 ? editApplicationDescriptor.getUrl()
                 : applicationToEdit.getUrl();
-        Set<Tag> updatedTags = editApplicationDescriptor.getTags().orElse(applicationToEdit.getTags());
+        Status updatedStatus = editApplicationDescriptor.getStatus().orElse(applicationToEdit.getStatus());
 
-        return new Application(updatedCompany, updatedRole, updatedApplicationDate, updatedUrl, updatedTags);
+        return new Application(updatedCompany, updatedRole, updatedApplicationDate, updatedUrl, updatedStatus);
     }
 
     @Override
@@ -142,27 +139,26 @@ public class EditCommand extends Command {
         private Role role;
         private ApplicationDate applicationDate;
         private Url url;
-        private Set<Tag> tags;
+        private Status status;
 
         public EditApplicationDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditApplicationDescriptor(EditApplicationDescriptor toCopy) {
             setCompany(toCopy.company);
             setRole(toCopy.role);
             setApplicationDate(toCopy.applicationDate);
             setUrl(toCopy.url);
-            setTags(toCopy.tags);
+            setStatus(toCopy.status);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(company, role, applicationDate, url, tags);
+            return CollectionUtil.isAnyNonNull(company, role, applicationDate, url, status);
         }
 
         public void setCompany(Company company) {
@@ -197,21 +193,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(url);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setStatus(Status status) {
+            this.status = status;
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
         }
 
         @Override
@@ -230,7 +217,7 @@ public class EditCommand extends Command {
                     && Objects.equals(role, otherEditApplicationDescriptor.role)
                     && Objects.equals(applicationDate, otherEditApplicationDescriptor.applicationDate)
                     && Objects.equals(url, otherEditApplicationDescriptor.url)
-                    && Objects.equals(tags, otherEditApplicationDescriptor.tags);
+                    && Objects.equals(status, otherEditApplicationDescriptor.status);
         }
 
         @Override
@@ -240,7 +227,7 @@ public class EditCommand extends Command {
                     .add("role", role)
                     .add("applicationDate", applicationDate)
                     .add("url", url)
-                    .add("tags", tags)
+                    .add("status", status)
                     .toString();
         }
     }

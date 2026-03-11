@@ -2,14 +2,10 @@ package seedu.address.model.application;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents an Application in the address book.
@@ -24,18 +20,18 @@ public class Application {
 
     // Data fields
     private final Optional<Url> url;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Status status;
 
     /**
      * Every field must be present and not null.
      */
-    public Application(Company company, Role role, ApplicationDate applicationDate, Optional<Url> url, Set<Tag> tags) {
-        requireAllNonNull(company, role, applicationDate, url, tags);
+    public Application(Company company, Role role, ApplicationDate applicationDate, Optional<Url> url, Status status) {
+        requireAllNonNull(company, role, applicationDate, url, status);
         this.company = company;
         this.role = role;
         this.applicationDate = applicationDate;
         this.url = url;
-        this.tags.addAll(tags);
+        this.status = status;
     }
 
     public Company getCompany() {
@@ -54,13 +50,7 @@ public class Application {
         return url;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
+    public Status getStatus() { return status; }
 
     /**
      * Returns true if both applications have the same company name.
@@ -96,13 +86,13 @@ public class Application {
                 && role.equals(otherApplication.role)
                 && applicationDate.equals(otherApplication.applicationDate)
                 && url.equals(otherApplication.url)
-                && tags.equals(otherApplication.tags);
+                && status.equals(otherApplication.status);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(company, role, applicationDate, url, tags);
+        return Objects.hash(company, role, applicationDate, url, status);
     }
 
     @Override
@@ -112,7 +102,7 @@ public class Application {
                 .add("role", role)
                 .add("applicationDate", applicationDate)
                 .add("url", url)
-                .add("tags", tags)
+                .add("status", status)
                 .toString();
     }
 

@@ -5,42 +5,42 @@
     "role" : "Software Engineer",
     "applicationDate" : "2026-01-01",
     "url" : "http://alice.example.com",
-    "tags" : [ "friends" ]
+    "status" : "Applied"
   }, {
     "company" : "Meta",
     "role" : "Data Analyst",
     "applicationDate" : "2026-01-02",
     "url" : "http://benson.example.com",
-    "tags" : [ "owesMoney", "friends" ]
+    "status" : "Interview"
   }, {
     "company" : "Google",
     "role" : "Mobile Developer",
     "applicationDate" : "2026-01-03",
     "url" : "http://carl.example.com",
-    "tags" : [ ]
+    "status" : "Applied"
   }, {
     "company" : "Dyson",
     "role" : "Backend Developer",
     "applicationDate" : "2026-01-04",
     "url" : "http://daniel.example.com",
-    "tags" : [ "friends" ]
+    "status" : "Offered"
   }, {
     "company" : "Tencent",
     "role" : "UX Designer",
     "applicationDate" : "2026-01-05",
     "url" : "http://elle.example.com",
-    "tags" : [ ]
+    "status" : "Applied"
   }, {
     "company" : "Foodpanda",
     "role" : "Frontend Developer",
     "applicationDate" : "2026-01-06",
     "url" : "http://fiona.example.com",
-    "tags" : [ ]
+    "status" : "Applied"
   }, {
     "company" : "Grab",
     "role" : "DevOps Engineer",
     "applicationDate" : "2026-01-07",
     "url" : "http://george.example.com",
-    "tags" : [ ]
+    "status" : "Applied"
   } ]
 }

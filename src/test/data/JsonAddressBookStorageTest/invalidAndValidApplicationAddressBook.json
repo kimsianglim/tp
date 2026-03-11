@@ -3,11 +3,13 @@
     "company": "Valid Application",
     "role": "Software Engineer",
     "applicationDate": "2026-03-09",
-    "url": "https://hans.com"
+    "url": "https://hans.com",
+    "status": "Applied"
   }, {
     "company": "Application With Invalid Role Field",
     "role": "@invalid",
     "applicationDate": "2026-03-09",
-    "url": "https://hans.com"
+    "url": "https://hans.com",
+    "status": "Applied"
   } ]
 }

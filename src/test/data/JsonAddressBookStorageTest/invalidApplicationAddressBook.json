@@ -3,6 +3,7 @@
     "company": "Application with invalid company field: Ha!ns Mu@ster",
     "role": "Software Engineer",
     "applicationDate": "2026-03-09",
-    "url": "https://hans.com"
+    "url": "https://hans.com",
+    "status": "Applied"
   } ]
 }
