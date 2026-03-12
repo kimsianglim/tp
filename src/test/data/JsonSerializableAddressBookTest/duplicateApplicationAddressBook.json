@@ -4,11 +4,12 @@
     "role": "Software Engineer",
     "applicationDate": "2026-03-09",
     "url": "https://alice.com",
-    "tags": [ "friends" ]
+    "status": "Applied"
   }, {
     "company": "Accenture",
     "role": "Software Engineer",
     "applicationDate": "2026-03-10",
-    "url": "https://pauline.com"
+    "url": "https://pauline.com",
+    "status": "Applied"
   } ]
 }

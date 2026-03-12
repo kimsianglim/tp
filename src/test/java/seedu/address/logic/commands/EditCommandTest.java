@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showApplicationAtIndex;
@@ -58,10 +58,10 @@ public class EditCommandTest {
 
         ApplicationBuilder applicationInList = new ApplicationBuilder(lastApplication);
         Application editedApplication = applicationInList.withCompany(VALID_COMPANY_BOB).withRole(VALID_ROLE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withStatus(VALID_STATUS_BOB).build();
 
         EditApplicationDescriptor descriptor = new EditApplicationDescriptorBuilder().withCompany(VALID_COMPANY_BOB)
-                .withRole(VALID_ROLE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withRole(VALID_ROLE_BOB).withStatus(VALID_STATUS_BOB).build();
         EditCommand editCommand = new EditCommand(indexLastApplication, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_APPLICATION_SUCCESS,

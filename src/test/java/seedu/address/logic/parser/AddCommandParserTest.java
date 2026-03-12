@@ -8,24 +8,25 @@ import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_APPLICATION_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ROLE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATUS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_URL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPLICATION_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICATION_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -40,8 +41,8 @@ import seedu.address.model.application.Application;
 import seedu.address.model.application.ApplicationDate;
 import seedu.address.model.application.Company;
 import seedu.address.model.application.Role;
+import seedu.address.model.application.Status;
 import seedu.address.model.application.Url;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ApplicationBuilder;
 
 public class AddCommandParserTest {
@@ -49,27 +50,17 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Application expectedApplication = new ApplicationBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Application expectedApplication = new ApplicationBuilder(BOB).withStatus(VALID_STATUS_BOB).build();
 
-        // whitespace only preamble
+        //whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + COMPANY_DESC_BOB + ROLE_DESC_BOB + APPLICATION_DATE_DESC_BOB
-                + URL_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedApplication));
-
-
-        // multiple tags - all accepted
-        Application expectedApplicationMultipleTags = new ApplicationBuilder(BOB)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
-        assertParseSuccess(parser,
-                COMPANY_DESC_BOB + ROLE_DESC_BOB + APPLICATION_DATE_DESC_BOB + URL_DESC_BOB
-                        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new AddCommand(expectedApplicationMultipleTags));
+                + URL_DESC_BOB + STATUS_DESC_BOB, new AddCommand(expectedApplication));
     }
 
     @Test
-    public void parse_repeatedNonTagValue_failure() {
+    public void parse_repeatedSingleValue_failure() {
         String validExpectedApplicationString = COMPANY_DESC_BOB + ROLE_DESC_BOB + APPLICATION_DATE_DESC_BOB
-                + URL_DESC_BOB + TAG_DESC_FRIEND;
+                + URL_DESC_BOB + STATUS_DESC_BOB;
 
         // multiple company names
         assertParseFailure(parser, COMPANY_DESC_AMY + validExpectedApplicationString,
@@ -87,12 +78,16 @@ public class AddCommandParserTest {
         assertParseFailure(parser, URL_DESC_AMY + validExpectedApplicationString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_URL));
 
+        // multiple statuses
+        assertParseFailure(parser, STATUS_DESC_AMY + validExpectedApplicationString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STATUS));
+
         // multiple fields repeated
         assertParseFailure(parser,
                 validExpectedApplicationString + ROLE_DESC_AMY + APPLICATION_DATE_DESC_AMY + COMPANY_DESC_AMY
-                        + URL_DESC_AMY + validExpectedApplicationString,
+                        + URL_DESC_AMY + STATUS_DESC_AMY + validExpectedApplicationString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY, PREFIX_URL,
-                        PREFIX_APPLICATION_DATE, PREFIX_ROLE));
+                        PREFIX_APPLICATION_DATE, PREFIX_ROLE, PREFIX_STATUS));
 
         // invalid value followed by valid value
 
@@ -133,16 +128,19 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        Application expectedApplication = new ApplicationBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, COMPANY_DESC_AMY + ROLE_DESC_AMY + APPLICATION_DATE_DESC_AMY + URL_DESC_AMY,
+        // missing url
+        Application expectedApplication = new ApplicationBuilder(AMY).withUrl(null).build();
+        assertParseSuccess(parser, COMPANY_DESC_AMY + ROLE_DESC_AMY + APPLICATION_DATE_DESC_AMY + STATUS_DESC_AMY,
                 new AddCommand(expectedApplication));
 
-        //missing url
-        expectedApplication = new ApplicationBuilder(AMY).withUrl(null).build();
-        assertParseSuccess(parser, COMPANY_DESC_AMY + ROLE_DESC_AMY + APPLICATION_DATE_DESC_AMY + TAG_DESC_FRIEND,
+        // missing status
+        expectedApplication = new ApplicationBuilder(AMY).withStatus(VALID_STATUS_AMY).build();
+        assertParseSuccess(parser, COMPANY_DESC_AMY + ROLE_DESC_AMY + APPLICATION_DATE_DESC_AMY + URL_DESC_AMY
+                + STATUS_DESC_AMY,
                 new AddCommand(expectedApplication));
     }
+
+
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
@@ -170,23 +168,23 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid company
         assertParseFailure(parser, INVALID_COMPANY_DESC + ROLE_DESC_BOB + APPLICATION_DATE_DESC_BOB + URL_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Company.MESSAGE_CONSTRAINTS);
+                + STATUS_DESC_BOB, Company.MESSAGE_CONSTRAINTS);
 
         // invalid role
         assertParseFailure(parser, COMPANY_DESC_BOB + INVALID_ROLE_DESC + APPLICATION_DATE_DESC_BOB + URL_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Role.MESSAGE_CONSTRAINTS);
+                + STATUS_DESC_BOB, Role.MESSAGE_CONSTRAINTS);
 
         // invalid application date
         assertParseFailure(parser, COMPANY_DESC_BOB + ROLE_DESC_BOB + INVALID_APPLICATION_DATE_DESC + URL_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, ApplicationDate.MESSAGE_CONSTRAINTS);
+                + STATUS_DESC_BOB, ApplicationDate.MESSAGE_CONSTRAINTS);
 
         // invalid url
         assertParseFailure(parser, COMPANY_DESC_BOB + ROLE_DESC_BOB + APPLICATION_DATE_DESC_BOB + INVALID_URL_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Url.MESSAGE_CONSTRAINTS);
+                + STATUS_DESC_BOB, Url.MESSAGE_CONSTRAINTS);
 
-        // invalid tag
+        // invalid status
         assertParseFailure(parser, COMPANY_DESC_BOB + ROLE_DESC_BOB + APPLICATION_DATE_DESC_BOB + URL_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+                + INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_COMPANY_DESC + ROLE_DESC_BOB + APPLICATION_DATE_DESC_BOB
@@ -195,7 +193,7 @@ public class AddCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + COMPANY_DESC_BOB + ROLE_DESC_BOB + APPLICATION_DATE_DESC_BOB
-                + URL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                + URL_DESC_BOB + STATUS_DESC_BOB,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

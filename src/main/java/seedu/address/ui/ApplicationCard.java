@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -52,8 +50,6 @@ public class ApplicationCard extends UiPart<Region> {
         phone.setText(application.getRole().value);
         url.setText(application.getUrl().map(u -> u.value).orElse("url: -"));
         applicationDate.setText(application.getApplicationDate().value);
-        application.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        tags.getChildren().add(new Label(application.getStatus().toString()));
     }
 }

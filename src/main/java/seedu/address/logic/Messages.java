@@ -44,8 +44,8 @@ public class Messages {
                 .append(application.getApplicationDate())
                 .append("; URL: ")
                 .append(application.getUrl().map(u -> u.value).orElse("-"))
-                .append("; Tags: ");
-        application.getTags().forEach(builder::append);
+                .append("; Status: ")
+                .append(application.getStatus());
         return builder.toString();
     }
 

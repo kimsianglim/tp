@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICATION_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -26,14 +26,13 @@ public class AddCommand extends Command {
             + PREFIX_ROLE + "ROLE "
             + PREFIX_APPLICATION_DATE + "APPLICATION_DATE "
             + "[" + PREFIX_URL + "URL] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_STATUS + "STATUS]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_COMPANY + "John Doe "
             + PREFIX_ROLE + "Software Engineer "
             + PREFIX_APPLICATION_DATE + "2025-02-14 "
             + PREFIX_URL + "https://www.example.com "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_STATUS + "Applied ";
 
     public static final String MESSAGE_SUCCESS = "New application added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPLICATION = "This application already exists in the address book";

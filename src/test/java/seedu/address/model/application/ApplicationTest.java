@@ -6,9 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPLICATION_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_BOB;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalApplications.ALICE;
 import static seedu.address.testutil.TypicalApplications.BOB;
 
@@ -17,12 +16,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.ApplicationBuilder;
 
 public class ApplicationTest {
-
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Application application = new ApplicationBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> application.getTags().remove(0));
-    }
 
     @Test
     public void isSameApplication() {
@@ -34,7 +27,7 @@ public class ApplicationTest {
 
         // same company and role, all other attributes different -> returns true
         Application editedAlice = new ApplicationBuilder(ALICE).withApplicationDate(VALID_APPLICATION_DATE_BOB)
-                .withUrl(VALID_URL_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withUrl(VALID_URL_BOB).withStatus(VALID_STATUS_BOB).build();
         assertTrue(ALICE.isSameApplication(editedAlice));
 
         // different company, all other attributes same -> returns false
@@ -85,8 +78,8 @@ public class ApplicationTest {
         editedAlice = new ApplicationBuilder(ALICE).withUrl(VALID_URL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different tags -> returns false
-        editedAlice = new ApplicationBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        // different status -> returns false
+        editedAlice = new ApplicationBuilder(ALICE).withStatus(VALID_STATUS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 
@@ -95,7 +88,7 @@ public class ApplicationTest {
         String expected = Application.class.getCanonicalName() + "{company=" + ALICE.getCompany()
                 + ", role=" + ALICE.getRole()
                 + ", applicationDate=" + ALICE.getApplicationDate() + ", url=" + ALICE.getUrl()
-                + ", tags=" + ALICE.getTags() + "}";
+                + ", status=" + ALICE.getStatus() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

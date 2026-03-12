@@ -1,13 +1,11 @@
 package seedu.address.logic.commands;
 
-
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICATION_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -36,8 +34,8 @@ public class CommandTestUtil {
     public static final String VALID_APPLICATION_DATE_BOB = "2026-03-10";
     public static final String VALID_URL_AMY = "http://amy.example.com";
     public static final String VALID_URL_BOB = "http://bob.example.com";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_STATUS_AMY = "Applied";
+    public static final String VALID_STATUS_BOB = "Interview";
 
     public static final String COMPANY_DESC_AMY = " " + PREFIX_COMPANY + VALID_COMPANY_AMY;
     public static final String COMPANY_DESC_BOB = " " + PREFIX_COMPANY + VALID_COMPANY_BOB;
@@ -49,8 +47,8 @@ public class CommandTestUtil {
             " " + PREFIX_APPLICATION_DATE + VALID_APPLICATION_DATE_BOB;
     public static final String URL_DESC_AMY = " " + PREFIX_URL + VALID_URL_AMY;
     public static final String URL_DESC_BOB = " " + PREFIX_URL + VALID_URL_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String STATUS_DESC_AMY = " " + PREFIX_STATUS + VALID_STATUS_AMY;
+    public static final String STATUS_DESC_BOB = " " + PREFIX_STATUS + VALID_STATUS_BOB;
 
     public static final String INVALID_COMPANY_DESC = " " + PREFIX_COMPANY + "James&";
     // '&' not allowed in company names
@@ -58,7 +56,7 @@ public class CommandTestUtil {
     public static final String INVALID_APPLICATION_DATE_DESC =
             " " + PREFIX_APPLICATION_DATE + "2026/03/09"; // '/' symbol not allowed
     public static final String INVALID_URL_DESC = " " + PREFIX_URL + "invalid-url"; // invalid URL format
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_STATUS_DESC = " " + PREFIX_STATUS + "UnknownStatus*"; // invalid status
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -69,10 +67,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditApplicationDescriptorBuilder().withCompany(VALID_COMPANY_AMY)
                 .withRole(VALID_ROLE_AMY).withApplicationDate(VALID_APPLICATION_DATE_AMY)
-                .withUrl(VALID_URL_AMY).withTags(VALID_TAG_FRIEND).build();
+                .withUrl(VALID_URL_AMY).withStatus(VALID_STATUS_AMY).build();
         DESC_BOB = new EditApplicationDescriptorBuilder().withCompany(VALID_COMPANY_BOB)
                 .withRole(VALID_ROLE_BOB).withApplicationDate(VALID_APPLICATION_DATE_BOB)
-                .withUrl(VALID_URL_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withUrl(VALID_URL_BOB).withStatus(VALID_STATUS_BOB).build();
     }
 
     /**
