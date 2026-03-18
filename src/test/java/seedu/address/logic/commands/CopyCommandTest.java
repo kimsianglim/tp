@@ -31,7 +31,7 @@ public class CopyCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_messageOnly_success() throws Exception {
+    public void execute_validIndexUnfilteredList_success() throws Exception {
         Application applicationToCopy = model.getFilteredApplicationList().get(INDEX_FIRST_APPLICATION.getZeroBased());
         CopyCommand copyCommand = new CopyCommandStub(INDEX_FIRST_APPLICATION);
 
@@ -43,7 +43,7 @@ public class CopyCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_messageOnly_success() throws Exception {
+    public void execute_validIndexFilteredList_success() throws Exception {
         showApplicationAtIndex(model, INDEX_FIRST_APPLICATION);
         Application applicationToCopy = model.getFilteredApplicationList().get(INDEX_FIRST_APPLICATION.getZeroBased());
         CopyCommand copyCommand = new CopyCommandStub(INDEX_FIRST_APPLICATION);
@@ -113,7 +113,8 @@ public class CopyCommandTest {
 
         @Override
         public CommandResult execute(Model model) throws CommandException {
-            Application applicationToCopy = model.getFilteredApplicationList().get(INDEX_FIRST_APPLICATION.getZeroBased());
+            Application applicationToCopy = model.getFilteredApplicationList()
+                    .get(INDEX_FIRST_APPLICATION.getZeroBased());
             return new CommandResult(String.format(MESSAGE_COPY_APPLICATION_SUCCESS,
                     Messages.format(applicationToCopy)));
         }
