@@ -145,24 +145,24 @@ Examples:
 * `list` followed by `copy 1` copies the 1st application's URL to the clipboard.
 * `find Google` followed by `copy 1` copies the 1st application's URL in the results of the `find` command.
 
-### Locating applications by company: `find`
+### Locating applications: `find`
 
-Finds applications whose company names contain any of the given keywords.
+Finds applications whose company names, roles, application dates or statuses contain any of the specified keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [n/COMPANY_NAME] [r/ROLE] [d/APPLICATION_DATE] [s/STATUS]...`
 
-* At least one keyword must be provided.
-* The search is case-insensitive. e.g `google` will match `Google`
-* The order of the keywords does not matter. e.g. `Google Meta` will match `Meta Google`
-* Only the company name is searched.
-* Only full words will be matched e.g. `Goog` will not match `Google`
-* Applications matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Google Meta` will return applications whose company names contain `Google` or `Meta`
+* At least one parameter must be provided.
+* The search is case-insensitive. e.g `n/google` will match `Google`.
+* The order of the keywords does not matter. e.g. `n/Google Meta` will match `Meta Google`.
+* Only full words will be matched e.g. `n/Goog` will not match `Google`.
+* Applications matching at least one keyword in the specified fields will be returned (i.e. `OR` search within the same field).
+* If multiple fields are specified, applications matching **all** specified fields will be returned (i.e. `AND` search across fields).
 
 Examples:
-* `find Google` returns applications whose company name contains `Google`
-* `find Meta Apple` returns applications whose company name contains `Meta` or `Apple`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find n/Google` returns applications to Google.
+* `find r/Intern` returns applications with the role Intern.
+* `find n/Google r/Intern` returns applications to Google with the role Intern.
+* `find s/Applied` returns applications with status Applied.
 
 ### Deleting an application : `delete`
 
@@ -235,6 +235,6 @@ Action     | Format, Examples
 **Next**   | `next INDEX`<br> e.g., `next 3`
 **Copy**   | `copy INDEX`<br> e.g., `copy 3`
 **Edit**   | `edit INDEX [n/COMPANY] [r/ROLE] [d/APPLICATION_DATE] [u/URL] [s/STATUS]`<br> e.g.,`edit 2 n/OpenAI s/Offered`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find Google Meta`
+**Find**   | `find [n/COMPANY_NAME] [r/ROLE] [d/APPLICATION_DATE] [s/STATUS]...`<br> e.g., `find n/Google r/Intern`
 **List**   | `list`
 **Help**   | `help`
