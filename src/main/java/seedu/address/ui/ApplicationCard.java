@@ -51,7 +51,12 @@ public class ApplicationCard extends UiPart<Region> {
         url.setText(application.getUrl().map(u -> u.value).orElse("url: -"));
         applicationDate.setText(application.getApplicationDate().value);
 
-        String statusClass = "status-" + application.getStatus().toString().toLowerCase();
+        String statusClass = getStatusStyleClass(application);
         status.getStyleClass().add(statusClass);
     }
+
+    private static String getStatusStyleClass(Application application) {
+        return "status-" + application.getStatus().toString().toLowerCase();
+    }
 }
+
