@@ -91,4 +91,27 @@ public class ApplicationTest {
                 + ", status=" + ALICE.getStatus() + "}";
         assertEquals(expected, ALICE.toString());
     }
+
+    @Test
+    public void hasTerminalStatus() {
+        // application with Rejected status -> returns true
+        Application rejectedApp = new ApplicationBuilder(ALICE).withStatus("Rejected").build();
+        assertTrue(rejectedApp.hasTerminalStatus());
+
+        // application with Withdrawn status -> returns true
+        Application withdrawnApp = new ApplicationBuilder(ALICE).withStatus("Withdrawn").build();
+        assertTrue(withdrawnApp.hasTerminalStatus());
+
+        // application with Applied status -> returns false
+        Application appliedApp = new ApplicationBuilder(ALICE).withStatus("Applied").build();
+        assertFalse(appliedApp.hasTerminalStatus());
+
+        // application with Interview status -> returns false
+        Application interviewApp = new ApplicationBuilder(ALICE).withStatus("Interview").build();
+        assertFalse(interviewApp.hasTerminalStatus());
+
+        // application with Offered status -> returns false
+        Application offeredApp = new ApplicationBuilder(ALICE).withStatus("Offered").build();
+        assertFalse(offeredApp.hasTerminalStatus());
+    }
 }

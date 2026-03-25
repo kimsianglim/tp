@@ -59,6 +59,26 @@ public class TypicalApplications {
             .withApplicationDate(VALID_APPLICATION_DATE_BOB).withUrl(VALID_URL_BOB)
             .withStatus(VALID_STATUS_BOB).build();
 
+    // Shared fixtures for commands that operate on terminal statuses.
+    public static final Application REJECTED_APPLICATION = new ApplicationBuilder()
+            .withCompany("Reject Co")
+            .withRole("Backend Intern")
+            .withApplicationDate("2026-04-01")
+            .withStatus("Rejected")
+            .build();
+    public static final Application WITHDRAWN_APPLICATION = new ApplicationBuilder()
+            .withCompany("Withdraw Co")
+            .withRole("Frontend Intern")
+            .withApplicationDate("2026-04-02")
+            .withStatus("Withdrawn")
+            .build();
+    public static final Application APPLIED_APPLICATION = new ApplicationBuilder()
+            .withCompany("Active Co")
+            .withRole("QA Intern")
+            .withApplicationDate("2026-04-03")
+            .withStatus("Applied")
+            .build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalApplications() {} // prevents instantiation

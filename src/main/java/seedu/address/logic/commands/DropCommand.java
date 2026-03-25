@@ -10,7 +10,6 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.application.Application;
-import seedu.address.model.application.Status;
 
 /**
  * Deletes all applications with terminal statuses (Rejected or Withdrawn).
@@ -34,38 +33,36 @@ public class DropCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Application> applicationsToDelete = model.getFilteredApplicationList().stream()
-                .filter(application -> application.getStatus() == Status.REJECTED
-                        || application.getStatus() == Status.WITHDRAWN)
-                .collect(Collectors.toList());
-
-        if (applicationsToDelete.isEmpty()) {
+        List<Application> applicationsToDrop = findApplicationsToDrop(model);
+        if (applicationsToDrop.isEmpty()) {
             throw new CommandException(MESSAGE_NO_REJECTED_WITHDRAWN_IN_CURRENT_LIST);
         }
 
-        applicationsToDelete.forEach(model::deleteApplication);
+        deleteApplications(model, applicationsToDrop);
+        return new CommandResult(buildDropMessage(applicationsToDrop));
+    }
 
-        String message = String.format(MESSAGE_DROP_APPLICATIONS_SUCCESS, applicationsToDelete.size());
-        String droppedApplications = applicationsToDelete.stream()
+    private List<Application> findApplicationsToDrop(Model model) {
+        return model.getFilteredApplicationList().stream()
+                .filter(Application::hasTerminalStatus)
+                .toList();
+    }
+
+    private void deleteApplications(Model model, List<Application> applicationsToDrop) {
+        applicationsToDrop.forEach(model::deleteApplication);
+    }
+
+    private String buildDropMessage(List<Application> droppedApplications) {
+        String summary = String.format(MESSAGE_DROP_APPLICATIONS_SUCCESS, droppedApplications.size());
+        String details = droppedApplications.stream()
                 .map(application -> "- " + Messages.format(application))
                 .collect(Collectors.joining("\n"));
-        message = message + "\n" + MESSAGE_DROPPED_APPLICATIONS_HEADER + "\n" + droppedApplications;
-
-        return new CommandResult(message);
+        return summary + "\n" + MESSAGE_DROPPED_APPLICATIONS_HEADER + "\n" + details;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof DropCommand)) {
-            return false;
-        }
-
-        return true;
+        return other instanceof DropCommand;
     }
 
     @Override

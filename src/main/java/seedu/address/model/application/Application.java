@@ -55,6 +55,14 @@ public class Application {
     }
 
     /**
+     * Returns true if the application has a terminal status (Rejected or Withdrawn).
+     * Terminal statuses indicate the application process has ended.
+     */
+    public boolean hasTerminalStatus() {
+        return status == Status.REJECTED || status == Status.WITHDRAWN;
+    }
+
+    /**
      * Returns true if both applications have the same company name.
      * This defines a weaker notion of equality between two applications.
      */
