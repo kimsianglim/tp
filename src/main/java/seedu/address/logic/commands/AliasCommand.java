@@ -24,6 +24,8 @@ public class AliasCommand extends Command {
             "You can only alias existing command words.";
     public static final String MESSAGE_INVALID_ALIAS =
             "Alias must be a single word and cannot be an existing command word.";
+    public static final String MESSAGE_OVERWRITE_SUCCESS =
+            "Alias '%1$s' was updated from '%2$s' to '%3$s'.";
 
     private static final Set<String> SUPPORTED_COMMAND_WORDS = Set.of(
             AddCommand.COMMAND_WORD,
@@ -65,7 +67,20 @@ public class AliasCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_ALIAS);
         }
 
+        boolean isOverwrite = model.hasAlias(alias);
+        String previousCommand = null;
+
+        if (isOverwrite) {
+            previousCommand = (String) model.getAliases().get(alias);
+        }
+
         model.setAlias(alias, commandWord);
+
+        if (isOverwrite) {
+            return new CommandResult(String.format(MESSAGE_OVERWRITE_SUCCESS,
+                    alias, commandWord, previousCommand));
+        }
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, alias, commandWord));
     }
 

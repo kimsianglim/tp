@@ -367,6 +367,8 @@ Creates a shortcut for an existing command word.
 **What you should expect**
 - You can use the alias in place of the original command word.
 - Example: after `alias ls list`, entering `ls` will run `list`.
+- If the alias already exists, it will be updated to point to the new command word.
+- The app will inform you when an existing alias has been overwritten.
 
 ---
 
