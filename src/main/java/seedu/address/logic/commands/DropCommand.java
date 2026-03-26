@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.application.Application;
 
 /**
- * Deletes all applications with terminal statuses (Rejected or Withdrawn).
+ * Deletes all applications in the current filtered list with terminal statuses (Rejected or Withdrawn).
  */
 public class DropCommand extends Command {
 
