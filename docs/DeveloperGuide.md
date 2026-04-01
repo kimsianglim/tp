@@ -321,18 +321,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `LockedIn` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `LockedIn` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Add an application**
-
-**Preconditions:**
-* User is logged in.
 
 **MSS:**
 
 1. User wants to add a new application record.
-2. User enters the command add with the required fields.
-3. LockedIn creates a new application record with the specified details.
+2. User specifies the application details.
+3. LockedIn creates the application record.
 4. LockedIn adds the application record to the application list.
 5. LockedIn shows a confirmation message displaying the added application record.
 
@@ -340,34 +337,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions:**
 
-* 2a. The `n/COMPANY` field is missing.
+* 2a. A required field is missing.
 
-  * 2a1. LockedIn shows an error message indicating that the company name is required.
+    * 2a1. LockedIn shows an error message indicating that the input is incomplete.
 
-    Use case ends.
+      Use case ends.
 
-* 2b. The `r/ROLE` field is missing.
+* 2b. The provided application date is invalid.
 
-  * 2b1. LockedIn shows an error message indicating that the role is required.
+    * 2b1. LockedIn shows an error message indicating that the date is invalid.
 
-    Use case ends.
+      Use case ends.
 
-* 2c. The provided `APPLICATION_DATE` is invalid.
+* 2c. The provided status is invalid.
 
-  * 2c1. LockedIn shows an error message indicating that the date format is invalid.
+    * 2c1. LockedIn shows an error message indicating that the status is invalid.
 
-    Use case ends.
+      Use case ends.
 
-* 2d. The provided `STATUS` is invalid.
+* 2d. An application with the same company, role, and application date already exists.
 
-   * 2d1. LockedIn shows an error message indicating that the status must be one of:
-          `APPLIED`, `INTERVIEW`, `OFFERED`, `REJECTED`, `WITHDRAWN`.
-
-     Use case ends.
-
-* 2e. An application with the same `COMPANY`, `ROLE`, and `APPLICATION_DATE` already exists.
-
-    * 2e1. LockedIn shows an error message indicating that a duplicate application record already exists.
+    * 2d1. LockedIn shows an error message indicating that a duplicate application record already exists.
 
       Use case ends.
 
@@ -375,123 +365,177 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case: Delete an application record**
 
 **Preconditions:**
-* User is logged in.
+* At least one application is shown in the current displayed list.
 
 **MSS:**
 
-1.  User wants to delete an application record.
-2.  User specifies the current index of the application record to be deleted.
-3.  LockedIn deletes the application record.
-4.  LockedIn shows a confirmation message indicating the deleted application record.
+1. User wants to delete an application record.
+2. User specifies the index of the application record to be deleted.
+3. LockedIn deletes the application record.
+4. LockedIn shows a confirmation message indicating the deleted application record.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions:**
 
-* 2a. The current displayed list is empty.
+* 2a. The specified index is invalid.
 
     * 2a1. LockedIn shows an error message.
 
       Use case ends.
 
-* 2b. The given index is invalid.
-
-    * 3a1. LockedIn shows an error message.
-
-      Use case ends.
 
 **Use case: Add Job URL**
 
 **Preconditions:**
-* User is logged in.
-* There is at least one existing job application in the system.
+* At least one application record exists in the system.
 
 **MSS:**
 
-1.  User requests to list application records.
-2.  LockedIn shows a list of application records.
-3.  User requests to add a job URL to a specific application record in the list.
-4.  LockedIn attaches the URL to the specific application record and displays a success message.
+1. User wants to add a job URL to an application record.
+2. User requests to view the application records.
+3. LockedIn shows the application records.
+4. User specifies the application record and the URL to be added.
+5. LockedIn updates the application record with the URL.
+6. LockedIn shows a confirmation message.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions:**
 
+* 4a. The specified index is invalid.
 
-* 3a. The given index is invalid.
+    * 4a1. LockedIn shows an error message.
 
-    * 3a1. LockedIn shows an error message.
+      Use case resumes at step 3.
 
-      Use case resumes at step 2.
+* 4b. The specified URL is invalid.
 
-* 3b. The given URL is invalid.
+    * 4b1. LockedIn shows an error message.
 
-    * 3b1. LockedIn shows an error message.
+      Use case resumes at step 3.
 
-      Use case resumes at step 2.
 
-* 3c. The given URL already exists for the specific job application.
+**Use case: Create an alias for a command word**
 
-    * 3c1. LockedIn displays a message showing that the URL already exists.
+**MSS:**
 
-      Use case resumes at step 2.
+1. User wants to create an alias for an existing command word.
+2. User specifies the alias and the command word to be aliased.
+3. LockedIn creates the alias.
+4. LockedIn shows a confirmation message displaying the alias mapping.
+
+   Use case ends.
+
+**Extensions:**
+
+* 2a. The user provides input in an invalid format.
+
+    * 2a1. LockedIn shows an error message indicating the correct format.
+
+      Use case ends.
+
+* 2b. The specified command word is not supported.
+
+    * 2b1. LockedIn shows an error message indicating that only existing command words can be aliased.
+
+      Use case ends.
+
+* 2c. The specified alias is an existing built-in command word.
+
+    * 2c1. LockedIn shows an error message indicating that the alias is invalid.
+
+      Use case ends.
+
+* 3a. The alias already exists.
+
+    * 3a1. LockedIn updates the alias to point to the new command word.
+    * 3a2. LockedIn shows a confirmation message indicating that the alias has been updated.
+
+      Use case ends.
+
+
+**Use case: Remove an existing alias**
+
+**Preconditions:**
+* At least one alias exists in LockedIn.
+
+**MSS:**
+
+1. User wants to remove an existing alias.
+2. User specifies the alias to be removed.
+3. LockedIn removes the alias.
+4. LockedIn shows a confirmation message indicating the removed alias.
+
+   Use case ends.
+
+**Extensions:**
+
+* 2a. The user provides input in an invalid format.
+
+    * 2a1. LockedIn shows an error message indicating the correct format.
+
+      Use case ends.
+
+* 2b. The specified alias does not exist.
+
+    * 2b1. LockedIn shows an error message indicating that the alias does not exist.
+
+      Use case ends.
+
+
+**Use case: View all saved aliases**
+
+**MSS:**
+
+1. User wants to view all saved aliases.
+2. User requests to view the alias list.
+3. LockedIn retrieves all saved aliases.
+4. LockedIn displays the saved aliases in alphabetical order.
+
+   Use case ends.
+
+**Extensions:**
+
+* 3a. There are no saved aliases.
+
+    * 3a1. LockedIn shows a message indicating that no aliases have been saved.
+
+      Use case ends.
+
 
 **Use case: Save data**
 
 **MSS:**
 
-1.  User executes any data-modifying command (e.g. add, edit, delete).
-2.  LockedIn saves the updated data to the local JSON file automatically.
+1. User performs an action that modifies application data.
+2. LockedIn saves the updated data to the local JSON file automatically.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions:**
 
-* 2a. LockedIn cannot write to the JSON file due to insufficient permissions.
+* 2a. LockedIn cannot write to the JSON file.
 
-    * 2a1. LockedIn displays an error: `Error: Insufficient permission to save data to the current directory. Data from this session may be lost.`
-
-      Use case ends.
-
-* 2b. The disk is full and the file cannot be written.
-
-    * 2b1. LockedIn displays an error: `Error: Could not save data. Your disk might be full.`
+    * 2a1. LockedIn shows an error message.
 
       Use case ends.
 
-* 2c. The JSON file is locked by another process.
-
-    * 2c1. LockedIn displays an error: `Error: Data file is currently in use by another program. Please close it to allow saving.`
-
-      Use case ends.
-
-* 2d. The JSON file or its directory does not exist.
-
-    * 2d1. LockedIn automatically creates the directory and a new JSON file populated with default data.
-
-      Use case ends.
 
 **Use case: Exit the application**
 
 **MSS:**
 
-1.  User enters `quit` or `q`.
-2.  LockedIn saves the current application data to the local JSON file.
-3.  LockedIn terminates.
+1. User requests to exit the application.
+2. LockedIn terminates.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions:**
 
-* 1a. User enters extra words after `quit` or `q`.
+* 1a. The input format is invalid.
 
-    * 1a1. LockedIn displays an error: `Error: Invalid command format. To save and exit, use quit or q`
-
-      Use case resumes at step 1.
-
-* 2a. LockedIn cannot write to the JSON file.
-
-    * 2a1. LockedIn displays an error: `Error: Unable to save data.`
+    * 1a1. LockedIn shows an error message.
 
       Use case ends.
 
@@ -512,13 +556,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, macOS.
-* **Application records**: A stored entry representing one internship application, including details such as company, role, status, application date, location, URL, and notes.
+* **Application record**: A stored entry representing one internship application, including details such as company, role, application date, URL, status, and note.
 * **Current displayed list**: The list of application records currently shown to the user, which may be the full list or a filtered subset.
 * **Index**: The 1-based position of an application record in the current displayed list.
-* **Status**: The current stage of an application, such as Applied, Interview, Offer, Rejected, or Withdrawn.
-* **CLI(Command-line interface)**: A way of interacting with the application by typing commands.
+* **Status**: The current stage of an application, such as Applied, OA, Interview, Offered, Rejected, or Withdrawn.
+* **CLI (Command-Line Interface)**: A way of interacting with the application by typing commands.
 * **Local storage**: Data saved on the user’s own device rather than on an online server.
 * **Job URL**: A web link attached to an application record for quick access to the original job posting or company page.
+* **Alias**: A user-defined shortcut for an existing command word.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -537,40 +582,145 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy it into an empty folder.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    2. Double-click the jar file.  
+       Expected: The GUI shows a set of sample application records. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to a preferred size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+    2. Re-launch the app by double-clicking the jar file.  
+       Expected: The most recent window size and location are retained.
 
-1. _{ more test cases …​ }_
+3. Exiting the application
 
-### Deleting a person
+    1. Test case: `exit`  
+       Expected: The application closes.
 
-1. Deleting a person while all persons are being shown
+    2. Test case: `exit now`  
+       Expected: The application closes, as extra words after `exit` are ignored.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+### Listing applications
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+1. Listing all applications
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Test case: `list`  
+       Expected: All application records are shown.
 
-1. _{ more test cases …​ }_
+    2. Test case: `list abc`  
+       Expected: All application records are shown, as extra words after `list` are ignored.
+
+
+### Deleting an application
+
+1. Deleting an application while all applications are being shown
+
+    1. Prerequisites: Use the `list` command. Multiple application records in the list.
+
+    2. Test case: `delete 1`  
+       Expected: The first application is deleted from the list. Details of the deleted application are shown in the result message.
+
+    3. Test case: `delete 0`  
+       Expected: No application is deleted. An error message is shown.
+
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `delete 999`  
+       Expected: Similar to the previous case.
+
+
+### Editing an application
+
+1. Editing an application in the displayed list
+
+    1. Prerequisites: Use the `list` command. Multiple application records in the list.
+
+    2. Test case: `edit 1 s/Interview`  
+       Expected: The first application’s status is updated to `Interview`.
+
+    3. Test case: `edit 1`  
+       Expected: No application is edited. An error message is shown.
+
+    4. Test case: `edit 0 s/OA`  
+       Expected: No application is edited. An error message is shown.
+
+    5. Test case: `edit 1 d/2025-02-30`  
+       Expected: No application is edited. An error message is shown.
+
+
+### Finding applications
+
+1. Finding applications by criteria
+
+    1. Prerequisites: Multiple application records exist.
+
+    2. Test case: `find n/Google`  
+       Expected: Only matching applications are shown.
+
+    3. Test case: `find`  
+       Expected: An error message is shown.
+
+    4. Test case: `find n/NoSuchCompany`  
+       Expected: An empty filtered list is shown.
+
+
+### Copying a URL
+
+1. Copying an application URL
+
+    1. Prerequisites: At least one displayed application has a URL.
+
+    2. Test case: `copy 1`  
+       Expected: The URL of the specified application is copied to the clipboard. A success message is shown.
+
+    3. Test case: `copy 999`  
+       Expected: An error message is shown.
+
+    4. Test case: `copy INDEX_WITHOUT_URL`  
+       Expected: An error message is shown indicating that there is no URL to copy.
+
+
+### Alias commands
+
+1. Creating an alias
+
+    1. Test case: `alias ls list`  
+       Expected: Alias `ls` is created for `list`.
+
+    2. Test case: `alias ls delete` after creating `ls -> list`  
+       Expected: Alias `ls` is updated to point to `delete`.
+
+    3. Test case: `alias list delete`  
+       Expected: An error message is shown because built-in command words cannot be used as aliases.
+
+2. Listing aliases
+
+    1. Test case: `alias-list`  
+       Expected: All saved aliases are shown in alphabetical order.
+
+3. Removing an alias
+
+    1. Prerequisites: At least one alias exists.
+
+    2. Test case: `unalias ls`  
+       Expected: Alias `ls` is removed.
+
+    3. Test case: `unalias noSuchAlias`  
+       Expected: An error message is shown.
+
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. Delete or rename the data file, then launch the app.  
+       Expected: The app starts successfully and recreates the data file.
 
-1. _{ more test cases …​ }_
+    2. Edit the data file into an invalid JSON format, then launch the app.  
+       Expected: The app handles the corrupted data file gracefully according to the documented behavior.
+
+2. Verifying automatic save
+
+    1. Add, edit, or delete an application, then close the app and relaunch it.  
+       Expected: The latest changes are retained.
