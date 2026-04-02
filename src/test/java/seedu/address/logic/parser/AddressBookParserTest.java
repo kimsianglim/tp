@@ -19,6 +19,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AliasCommand;
 import seedu.address.logic.commands.AliasListCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearNoteCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DropCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -100,6 +101,13 @@ public class AddressBookParserTest {
     public void parseCommand_note() throws Exception {
         NoteCommand command = (NoteCommand) parser.parseCommand(NoteCommand.COMMAND_WORD + " 1 nt/Prepare for OA");
         assertEquals(new NoteCommand(INDEX_FIRST_APPLICATION, new Note("Prepare for OA")), command);
+    }
+
+    @Test
+    public void parseCommand_clearNote() throws Exception {
+        ClearNoteCommand command =
+                (ClearNoteCommand) parser.parseCommand(ClearNoteCommand.COMMAND_WORD + " 1");
+        assertEquals(new ClearNoteCommand(INDEX_FIRST_APPLICATION), command);
     }
 
     @Test
