@@ -98,16 +98,20 @@ public class AddCommandParserTest {
         // invalid value followed by valid value
 
         // invalid company
-        assertParseFailure(parser, INVALID_COMPANY_DESC + validExpectedApplicationString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY));
+        assertParseFailure(parser,
+                INVALID_COMPANY_DESC + ROLE_DESC_BYTEDANCE + APPLICATION_DATE_DESC_BYTEDANCE
+                        + URL_DESC_BYTEDANCE + STATUS_DESC_BYTEDANCE,
+                Company.MESSAGE_CONSTRAINTS);
 
         // invalid application date
         assertParseFailure(parser, INVALID_APPLICATION_DATE_DESC + validExpectedApplicationString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_APPLICATION_DATE));
 
         // invalid role
-        assertParseFailure(parser, INVALID_ROLE_DESC + validExpectedApplicationString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROLE));
+        assertParseFailure(parser,
+                COMPANY_DESC_BYTEDANCE + INVALID_ROLE_DESC + APPLICATION_DATE_DESC_BYTEDANCE
+                        + URL_DESC_BYTEDANCE + STATUS_DESC_BYTEDANCE,
+                Role.MESSAGE_CONSTRAINTS);
 
         // invalid url
         assertParseFailure(parser, INVALID_URL_DESC + validExpectedApplicationString,
@@ -211,7 +215,7 @@ public class AddCommandParserTest {
         // two invalid values, only first invalid value reported
         assertParseFailure(parser,
                 INVALID_COMPANY_DESC + ROLE_DESC_BYTEDANCE + APPLICATION_DATE_DESC_BYTEDANCE + INVALID_URL_DESC,
-                Company.MESSAGE_CONSTRAINTS);
+                Url.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser,
