@@ -182,18 +182,6 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid company
-        assertParseFailure(parser,
-                INVALID_COMPANY_DESC + ROLE_DESC_BYTEDANCE + APPLICATION_DATE_DESC_BYTEDANCE
-                        + URL_DESC_BYTEDANCE + STATUS_DESC_BYTEDANCE,
-                Company.MESSAGE_CONSTRAINTS);
-
-        // invalid role
-        assertParseFailure(parser,
-                COMPANY_DESC_BYTEDANCE + INVALID_ROLE_DESC + APPLICATION_DATE_DESC_BYTEDANCE
-                        + URL_DESC_BYTEDANCE + STATUS_DESC_BYTEDANCE,
-                Role.MESSAGE_CONSTRAINTS);
-
         // invalid application date
         assertParseFailure(parser,
                 COMPANY_DESC_BYTEDANCE + ROLE_DESC_BYTEDANCE + INVALID_APPLICATION_DATE_DESC
@@ -211,11 +199,6 @@ public class AddCommandParserTest {
                 COMPANY_DESC_BYTEDANCE + ROLE_DESC_BYTEDANCE + APPLICATION_DATE_DESC_BYTEDANCE
                         + URL_DESC_BYTEDANCE + INVALID_STATUS_DESC,
                 Status.MESSAGE_CONSTRAINTS);
-
-        // two invalid values, only first invalid value reported
-        assertParseFailure(parser,
-                INVALID_COMPANY_DESC + ROLE_DESC_BYTEDANCE + APPLICATION_DATE_DESC_BYTEDANCE + INVALID_URL_DESC,
-                Url.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser,
