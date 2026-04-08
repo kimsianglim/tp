@@ -10,13 +10,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Role {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Roles can contain letters, numbers, spaces, and symbols, and must not be blank";
+            "Roles can only contain English letters, numbers, spaces, "
+                    + "and these symbols: ` ~ ! @ # $ % ^ & * ( ) - _ = + [ { ] } \\ | ; : ' \" , < . > / ?";
 
-    /*
-     * The first character must not be a whitespace,
-     * otherwise \" \" (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX =
+            "(?=.*[A-Za-z0-9`~!@#$%^&*()\\-_=+\\[\\{\\]\\}\\\\|;:'\",<.>/?])"
+                    + "[A-Za-z0-9`~!@#$%^&*()\\-_=+\\[\\{\\]\\}\\\\|;:'\",<.>/? ]+";
 
     public final String value;
 

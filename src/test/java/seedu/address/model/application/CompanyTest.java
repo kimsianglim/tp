@@ -25,17 +25,22 @@ public class CompanyTest {
         assertThrows(NullPointerException.class, () -> Company.isValidCompany(null));
 
         // invalid company
-        assertFalse(Company.isValidCompany("")); // empty string
-        assertFalse(Company.isValidCompany(" ")); // spaces only
-        assertFalse(Company.isValidCompany(" Google")); // leading space
+        assertFalse(Company.isValidCompany(""));
+        assertFalse(Company.isValidCompany(" "));
+        assertFalse(Company.isValidCompany("Google😀"));
+        assertFalse(Company.isValidCompany("工程师"));
+        assertFalse(Company.isValidCompany("𱁬"));
 
         // valid company
-        assertTrue(Company.isValidCompany("^")); // symbol only
+        assertTrue(Company.isValidCompany("^"));
         assertTrue(Company.isValidCompany("OpenAI"));
         assertTrue(Company.isValidCompany("ByteDance Pte. Ltd."));
         assertTrue(Company.isValidCompany("TikTok (SG)"));
         assertTrue(Company.isValidCompany("AT&T"));
         assertTrue(Company.isValidCompany("R&D Labs"));
+        assertTrue(Company.isValidCompany("Google  Inc"));
+        assertTrue(Company.isValidCompany(" Google"));
+        assertTrue(Company.isValidCompany("Google "));
     }
 
     @Test

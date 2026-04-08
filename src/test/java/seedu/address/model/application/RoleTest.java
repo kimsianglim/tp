@@ -25,9 +25,11 @@ public class RoleTest {
         assertThrows(NullPointerException.class, () -> Role.isValidRole(null));
 
         // invalid roles
-        assertFalse(Role.isValidRole("")); // empty string
-        assertFalse(Role.isValidRole(" ")); // spaces only
-        assertFalse(Role.isValidRole(" Software Engineer")); // leading space
+        assertFalse(Role.isValidRole(""));
+        assertFalse(Role.isValidRole(" "));
+        assertFalse(Role.isValidRole("Software😀"));
+        assertFalse(Role.isValidRole("工程师"));
+        assertFalse(Role.isValidRole("𱁬"));
 
         // valid roles
         assertTrue(Role.isValidRole("@Engineer"));
@@ -36,6 +38,9 @@ public class RoleTest {
         assertTrue(Role.isValidRole("Front-End Engineer"));
         assertTrue(Role.isValidRole("SWE Intern (AI/ML)"));
         assertTrue(Role.isValidRole("QA & Testing"));
+        assertTrue(Role.isValidRole("Software   Engineer"));
+        assertTrue(Role.isValidRole(" Software Engineer"));
+        assertTrue(Role.isValidRole("Software Engineer "));
     }
 
     @Test

@@ -160,8 +160,13 @@ Notes about the command format
 
 - Extra words for commands that do not take parameters, such as `help`, `list`, and `exit` are ignored.
   Example: `help 123` is treated as `help`.
+
 - Commands like `clear` and `drop` do not accept any arguments. Using arguments will result in an error.
   Example: `clear 4` will show an error message.
+
+- Leading and trailing spaces around field values are ignored.
+  Example: `add n/  Google   r/  Software Engineer  ` is treated the same as
+  `add n/Google r/Software Engineer`.
 
 - If you are using a PDF version of this document, be careful when copying commands that wrap across multiple lines. Spaces around line breaks may be omitted when pasted into the app.
 
@@ -213,7 +218,9 @@ Adds a new application to LockedIn.
 - `STATUS` — current application stage
 
 **Notes**
-- `COMPANY` and `ROLE` can contain letters, numbers, spaces, and symbols, and must not be blank.
+- `COMPANY` and `ROLE` can contain English letters, numbers, spaces, and these symbols:
+  `` ` ~ ! @ # $ % ^ & * ( ) - _ = + [ { ] } \ | ; : ' " , < . > / ? ``
+- `COMPANY` and `ROLE` must not be blank.
 - Company and role comparisons are case-insensitive. For example, `Google` and `GOOGLE` are treated as the same company.
 - `APPLICATION_DATE` must be a valid date in the format `yyyy-MM-dd`.
 - If `d/APPLICATION_DATE` is omitted, LockedIn uses the current date by default.
@@ -275,7 +282,9 @@ Edits an existing application in LockedIn.
 - `INDEX` must be a positive integer such as `1`, `2`, or `3`.
 - You must provide at least one field to edit.
 - Existing values are updated to the input values.
-- `COMPANY` and `ROLE` can contain letters, numbers, spaces, and symbols, and must not be blank.
+- `COMPANY` and `ROLE` can contain English letters, numbers, spaces, and these symbols:
+  `` ` ~ ! @ # $ % ^ & * ( ) - _ = + [ { ] } \ | ; : ' " , < . > / ? ``
+- `COMPANY` and `ROLE` must not be blank.
 - `APPLICATION_DATE` must be a valid date in the format `yyyy-MM-dd`.
 - `URL`, if provided, must start with `http://` or `https://`.
 
@@ -605,6 +614,9 @@ Before editing the data file:
 
 ## <span style="color:#4a90e2;">FAQ</span>
 <br>
+
+**Q: Can I use emoji or non-English characters in company and role names?**  
+A: No. LockedIn currently supports only English letters, numbers, spaces, and a fixed set of symbols for `COMPANY` and `ROLE`.
 
 **Q: What date format should I use?**<br>
 A: Use the format `yyyy-MM-dd`. For example, `2025-02-14`.
