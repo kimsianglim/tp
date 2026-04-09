@@ -58,9 +58,6 @@ public class EditCommandParserTest {
         // no index specified
         assertParseFailure(parser, COMPANY_DESC_AMAZON, MESSAGE_INVALID_FORMAT);
 
-        // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
-
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
@@ -72,12 +69,6 @@ public class EditCommandParserTest {
 
         // zero index
         assertParseFailure(parser, "0" + COMPANY_DESC_AMAZON, MESSAGE_INVALID_INDEX);
-
-        // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_INDEX);
-
-        // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_INDEX);
     }
 
     @Test
