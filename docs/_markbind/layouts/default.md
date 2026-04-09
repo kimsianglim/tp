@@ -45,7 +45,7 @@
     * [Delete Command]({{ baseUrl }}/UserGuide.html#delete)
     * [Drop Command]({{ baseUrl }}/UserGuide.html#drop)
     * [Clear Command]({{ baseUrl }}/UserGuide.html#clear)
-    * [Exit Command]({{ baseUrl }}/UserGuide.html#exit)s
+    * [Exit Command]({{ baseUrl }}/UserGuide.html#exit)
   * [Saving and Editing Data]({{ baseUrl }}/UserGuide.html#saving-and-editing-data)
   * [FAQ]({{ baseUrl }}/UserGuide.html#faq)
   * [Known Issues]({{ baseUrl }}/UserGuide.html#known-issues)
