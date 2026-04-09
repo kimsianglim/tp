@@ -363,34 +363,34 @@ in a CLI environment. It allows target users to log application updates, record 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                     | I want to …​                                 | So that I can…​                                                        |
-|----------|--------------------------------------------|---------------------------------------------|-----------------------------------------------------------------------|
-| `* * *`  | first time user                            | add an application record                   | track my application                                                  |
-| `* * *`  | first time user                            | view all applications in a list             | see all my applications                                               |
-| `* * *`  | first time user                            | delete application records                  | remove companies I am no longer interested in                         |
-| `* * *`  | first time user                            | edit an application's details               | correct mistakes I made                                               |
-| `* * *`  | user                                       | update an application status                | track the progress of my application                                  |
-| `* * *`  | user                                       | tag a deadline to each company              | track my deadlines efficiently                                        |
-| `* * *`  | user                                       | save data on my hard disk                   | access my records locally                                             |
-| `* * *`  | user                                       | add a job URL to an entry                   | quickly revisit the job posting                                       |
-| `* *`    | user                                       | sort company list by deadline               | know which deadlines are coming up                                    |
-| `* *`    | user                                       | filter the list by status                   | see only my active applications                                       |
-| `* *`    | user                                       | view the potential pay of each position     | know which applications result in higher pay                          |
-| `* *`    | user                                       | filter the list by pay range                | determine expected salary levels                                      |
-| `* *`    | user                                       | view total number of applications by status | track my overall progress                                             |
-| `* *`    | user                                       | auto save my data after every command       | avoid losing data if the terminal closes                              |
-| `* *`    | user                                       | copy contact info between entries           | avoid retyping everything                                             |
-| `* *`    | user                                       | favourite companies                         | track companies I am particularly interested in                       |
-| `* *`    | first time user                            | see dummy data                              | understand how the data is structured                                 |
-| `* *`    | first time user                            | find company contact details by name        | follow up with companies easily                                       |
-| `*`      | user                                       | pin the application window on top           | keep the logbook visible while browsing job portals                   |
-| `*`      | user                                       | undo a command                              | recover from accidental deletions                                     |
-| `*`      | expert user                                | use short aliases                           | type commands faster                                                  |
-| `*`      | expert user                                | use tab completion                          | avoid typing full commands                                            |
-| `*`      | expert user                                | cycle through previous commands             | reuse previously typed commands                                       |
-| `*`      | expert user                                | bulk delete applications by status          | remove rejected or ghosted applications quickly                       |
-| `*`      | expert user                                | export data into another file format        | keep backups or reuse data elsewhere                                  |
-| `*`      | expert user                                | add tags to companies                       | record additional information about companies                         |
+| Priority | As a …​                                     | I want to …​                                   | So that I can…​                                     |
+|----------|--------------------------------------------|------------------------------------------------|-----------------------------------------------------|
+| `* * *`  | first time user                            | add an application record                      | track my application                                |
+| `* * *`  | first time user                            | view all applications in a list                | see all my applications                             |
+| `* * *`  | first time user                            | delete application records                     | remove companies I am no longer interested in       |
+| `* * *`  | first time user                            | edit an application's details                  | correct mistakes I made                             |
+| `* * *`  | user                                       | update an application status                   | track the progress of my application                |
+| `* * *`  | user                                       | save the application date for each application | track my applications efficiently                   |
+| `* * *`  | user                                       | save data on my hard disk                      | access my records locally                           |
+| `* * *`  | user                                       | add a job URL to an entry                      | quickly revisit the job posting                     |
+| `* *`    | user                                       | sort company list by application date          | know which applications need follow-up first              |
+| `* *`    | user                                       | filter the list by status                      | see only my active applications                     |
+| `* *`    | user                                       | view the potential pay of each position        | know which applications result in higher pay        |
+| `* *`    | user                                       | filter the list by pay range                   | determine expected salary levels                    |
+| `* *`    | user                                       | view total number of applications by status    | track my overall progress                           |
+| `* *`    | user                                       | auto save my data after every command          | avoid losing data if the terminal closes            |
+| `* *`    | user                                       | copy contact info between entries              | avoid retyping everything                           |
+| `* *`    | user                                       | favourite companies                            | track companies I am particularly interested in     |
+| `* *`    | first time user                            | see dummy data                                 | understand how the data is structured               |
+| `* *`    | first time user                            | find company contact details by name           | follow up with companies easily                     |
+| `*`      | user                                       | pin the application window on top              | keep the logbook visible while browsing job portals |
+| `*`      | user                                       | undo a command                                 | recover from accidental deletions                   |
+| `*`      | expert user                                | use short aliases                              | type commands faster                                |
+| `*`      | expert user                                | use tab completion                             | avoid typing full commands                          |
+| `*`      | expert user                                | cycle through previous commands                | reuse previously typed commands                     |
+| `*`      | expert user                                | bulk delete applications by status             | remove rejected or ghosted applications quickly     |
+| `*`      | expert user                                | export data into another file format           | keep backups or reuse data elsewhere                |
+| `*`      | expert user                                | add tags to companies                          | record additional information about companies       |
 
 
 ### Use cases
@@ -790,14 +790,14 @@ testers are expected to do more *exploratory* testing.
 
     1. Download the jar file and copy it into an empty folder.
 
-    2. Double-click the jar file.  
+    2. Open a command window. Launch the jar file using the java -jar command
        Expected: The GUI shows a set of sample application records. The window size may not be optimum.
 
 2. Saving window preferences
 
     1. Resize the window to a preferred size. Move the window to a different location. Close the window.
 
-    2. Re-launch the app by double-clicking the jar file.  
+    2. Re-launch the app by using the java -jar command.  
        Expected: The most recent window size and location are retained.
 
 3. Exiting the application
@@ -807,6 +807,37 @@ testers are expected to do more *exploratory* testing.
 
     2. Test case: `exit now`  
        Expected: The application closes, as extra words after `exit` are ignored.
+
+### Adding an application
+
+1. Adding a new application
+
+    1. Test case: `add n/Google r/Software Engineer Intern d/2025-04-01`  
+       Expected: A new application is added with the given company name, role, and application date. Status defaults to `Applied`.
+
+    2. Test case: `add n/OpenAI r/Research Intern d/2025-04-05 u/https://jobs.openai.com s/Interview`  
+       Expected: A new application is added with the given company name, role, date, URL, and status.
+
+    3. Test case: `add n/Shopee r/Backend Intern u/https://careers.shopee.sg`  
+       Expected: A new application is added. The current date is used as the application date, and status defaults to `Applied`.
+
+    4. Test case: `add n/Google r/Software Engineer Intern d/2025-04-01` when an identical application already exists  
+       Expected: No application is added. An error message is shown because duplicate applications are not allowed.
+
+    5. Test case: `add n/ r/Software Engineer Intern d/2025-04-01`  
+       Expected: No application is added. An error message is shown because the company name cannot be blank.
+
+    6. Test case: `add n/Google r/ d/2025-04-01`  
+       Expected: No application is added. An error message is shown because the role cannot be blank.
+
+    7. Test case: `add n/Google r/Software Engineer Intern d/2025-02-30`  
+       Expected: No application is added. An error message is shown because the date is invalid.
+
+    8. Test case: `add n/Google r/Software Engineer Intern u/google.com`  
+       Expected: No application is added. An error message is shown because the URL must start with `http://` or `https://`.
+
+    9. Test case: `add n/Google r/Software Engineer Intern s/InvalidStatus`  
+       Expected: No application is added. An error message is shown because only supported status values are accepted.
 
 
 ### Listing applications
@@ -818,23 +849,6 @@ testers are expected to do more *exploratory* testing.
 
     2. Test case: `list abc`  
        Expected: All application records are shown, as extra words after `list` are ignored.
-
-
-### Deleting an application
-
-1. Deleting an application while all applications are being shown
-
-    1. Prerequisites: Use the `list` command. Multiple application records in the list.
-
-    2. Test case: `delete 1`  
-       Expected: The first application is deleted from the list. Details of the deleted application are shown in the result message.
-
-    3. Test case: `delete 0`  
-       Expected: No application is deleted. An error message is shown.
-
-    4. Other incorrect delete commands to try: `delete`, `delete x`, `delete 999`  
-       Expected: Similar to the previous case.
-
 
 ### Editing an application
 
@@ -854,6 +868,21 @@ testers are expected to do more *exploratory* testing.
     5. Test case: `edit 1 d/2025-02-30`  
        Expected: No application is edited. An error message is shown.
 
+### Deleting an application
+
+1. Deleting an application while all applications are being shown
+
+    1. Prerequisites: Use the `list` command. Multiple application records in the list.
+
+    2. Test case: `delete 1`  
+       Expected: The first application is deleted from the list. Details of the deleted application are shown in the result message.
+
+    3. Test case: `delete 0`  
+       Expected: No application is deleted. An error message is shown.
+
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `delete 999`  
+       Expected: Similar to the previous case.
+
 
 ### Finding applications
 
@@ -862,14 +891,76 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: Multiple application records exist.
 
     2. Test case: `find n/Google`  
-       Expected: Only matching applications are shown.
+       Expected: Only applications with company names matching `Google` are shown.
 
-    3. Test case: `find`  
-       Expected: An error message is shown.
+    3. Test case: `find r/Software Engineer`  
+       Expected: Only applications with matching role names are shown.
 
-    4. Test case: `find n/NoSuchCompany`  
-       Expected: An empty filtered list is shown.
+    4. Test case: `find s/Interview`  
+       Expected: Only applications with status `Interview` are shown.
 
+    5. Test case: `find n/Google s/OA`  
+       Expected: Only applications matching both company name `Google` and status `OA` are shown.
+
+    6. Test case: `find n/Google r/Intern`  
+       Expected: Only applications matching both company name `Google` and role containing `Intern` are shown.
+
+    7. Test case: `find`  
+       Expected: An error message is shown because at least one search prefix must be provided.
+
+   8. Test case: `find abc`  
+       Expected: An error message is shown because the input does not contain valid prefixes.
+
+   9. Test case: `find s/InvalidStatus`  
+       Expected: An error message is shown because the status is invalid and only supported status values are accepted.
+
+### Next and drop commands
+
+1. Advancing application status (`next`)
+
+    1. Prerequisites: Use the `list` command. Multiple application records in the list.
+
+    2. Test case: `next 1`  
+       Expected: The first application's status advances by one step in the fixed cycle (`Applied -> OA -> Interview -> Offered -> Rejected -> Withdrawn -> Applied`).
+
+    3. Test case: Execute `next 1` repeatedly after status becomes `Withdrawn`.  
+       Expected: The next update cycles status back to `Applied`.
+
+    4. Test case: `next 0`  
+       Expected: No application is updated. An error message is shown.
+
+2. Dropping terminal applications (`drop`)
+
+    1. Prerequisites: Current displayed list contains at least one application with status `Rejected` or `Withdrawn`.
+
+    2. Test case: `drop`  
+       Expected: All `Rejected`/`Withdrawn` applications in the current list are deleted, and a summary is shown.
+
+    3. Test case: `drop now`  
+       Expected: No deletion occurs. An error message is shown because `drop` does not accept arguments.
+
+
+### Notes commands
+
+1. Setting notes (`note`)
+
+    1. Prerequisites: At least one application exists.
+
+    2. Test case: `note 1 nt/Prepare for OA this weekend.`  
+       Expected: Note field for the first application is updated.
+
+    3. Test case: `note 1 nt/`  
+       Expected: No note is saved. An error message is shown.
+
+2. Clearing notes (`clearnote`)
+
+    1. Prerequisites: At least one application has a non-empty note.
+
+    2. Test case: `clearnote 1`  
+       Expected: Note for the first application is removed.
+
+    3. Test case: `clearnote 1 extra`  
+       Expected: Command is rejected as invalid format.
 
 ### Copying a URL
 
@@ -880,7 +971,7 @@ testers are expected to do more *exploratory* testing.
     2. Test case: `copy 1`  
        Expected: The URL of the specified application is copied to the clipboard. A success message is shown.
 
-    3. Test case: `copy 999`  
+    3. Test case: `copy -1`  
        Expected: An error message is shown.
 
     4. Test case: `copy INDEX_WITHOUT_URL`  
@@ -915,55 +1006,26 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `unalias noSuchAlias`  
        Expected: An error message is shown.
 
+### Clearing all applications
 
-### Next and drop commands
+1. Clearing all applications from the list
 
-1. Advancing application status (`next`)
+    1. Prerequisites: Multiple application records exist.
 
-    1. Prerequisites: Use the `list` command. Multiple application records in the list.
+    2. Test case: `clear`  
+       Expected: All application records are removed from the application list.
 
-    2. Test case: `next 1`  
-       Expected: The first application's status advances by one step in the fixed cycle (`Applied -> OA -> Interview -> Offered -> Rejected -> Withdrawn -> Applied`).
+    3. Test case: `find n/Google` followed by `clear`  
+       Expected: All applications in the current filtered list are removed, while applications not shown in the filtered list remain in the application list.
 
-    3. Test case: Execute `next 1` repeatedly after status becomes `Withdrawn`.  
-       Expected: The next update cycles status back to `Applied`.
+    4. Test case: `clear now`  
+       Expected: No applications are removed. An error message is shown because `clear` does not accept any arguments.
 
-    4. Test case: `next 0`  
-       Expected: No application is updated. An error message is shown.
+    5. Test case: `clear 1`  
+       Expected: No applications are removed. An error message is shown because `clear` does not accept any arguments.
 
-2. Dropping terminal applications (`drop`)
-
-    1. Prerequisites: Current displayed list contains at least one application with status `Rejected` or `Withdrawn`.
-
-    2. Test case: `drop`  
-       Expected: All `Rejected`/`Withdrawn` applications in the current list are deleted, and a summary is shown.
-
-    3. Test case: `drop now`  
-       Expected: No deletion occurs. An error message is shown because `drop` does not accept arguments.
-
-
-### Notes commands
-
-1. Setting notes (`note`)
-
-    1. Prerequisites: At least one application exists.
-
-    2. Test case: `note 1 n/Prepare for OA this weekend.`  
-       Expected: Note field for the first application is updated.
-
-    3. Test case: `note 1 n/`  
-       Expected: No note is saved. An error message is shown.
-
-2. Clearing notes (`clearnote`)
-
-    1. Prerequisites: At least one application has a non-empty note.
-
-    2. Test case: `clearnote 1`  
-       Expected: Note for the first application is removed.
-
-    3. Test case: `clearnote 1 extra`  
-       Expected: Command is rejected as invalid format.
-
+    6. Test case: Use `list` after `clear`  
+       Expected: The application list is empty if all applications were previously cleared.
 
 ### Saving data
 
