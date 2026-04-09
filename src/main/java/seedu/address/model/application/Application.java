@@ -2,6 +2,7 @@ package seedu.address.model.application;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -117,8 +118,13 @@ public class Application {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(company, role, applicationDate, url, status, note);
+        return Objects.hash(
+                company.value.toLowerCase(Locale.ROOT),
+                role.value.toLowerCase(Locale.ROOT),
+                applicationDate,
+                url,
+                status,
+                note);
     }
 
     @Override

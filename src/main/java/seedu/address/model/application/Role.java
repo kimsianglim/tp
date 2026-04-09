@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's company name in the address book.
+ * Represents a role for the application in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidRole(String)}
  */
 public class Role {
@@ -24,9 +24,9 @@ public class Role {
     public final String value;
 
     /**
-     * Constructs a {@code Company}.
+     * Constructs a {@code Role}.
      *
-     * @param role A valid company name.
+     * @param role A valid role name.
      */
     public Role(String role) {
         requireNonNull(role);

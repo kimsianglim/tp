@@ -111,13 +111,11 @@ class JsonAdaptedApplication {
         if (note == null) {
             modelNote = Note.EMPTY;
         } else {
-            if (note.length() > Note.MAX_LENGTH) {
-                throw new IllegalValueException(Note.MESSAGE_LENGTH_CONSTRAINTS);
+            try {
+                modelNote = new Note(note);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalValueException(e.getMessage());
             }
-            if (!note.isEmpty() && !Note.hasValidCharacters(note)) {
-                throw new IllegalValueException(Note.MESSAGE_CONSTRAINTS);
-            }
-            modelNote = new Note(note);
         }
 
         return new Application(modelCompany, modelRole, modelApplicationDate, modelUrl, modelStatus, modelNote);
