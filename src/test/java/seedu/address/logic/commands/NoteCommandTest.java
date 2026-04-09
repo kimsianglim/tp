@@ -111,7 +111,8 @@ public class NoteCommandTest {
 
     @Test
     public void execute_replaceExistingNote_success() {
-        Application originalApplication = model.getFilteredApplicationList().get(INDEX_FIRST_APPLICATION.getZeroBased());
+        Application originalApplication =
+                model.getFilteredApplicationList().get(INDEX_FIRST_APPLICATION.getZeroBased());
         Application applicationWithOldNote = copyWithNote(originalApplication, "old");
         model.setApplication(originalApplication, applicationWithOldNote);
 
