@@ -16,7 +16,7 @@ public class NoteTest {
 
     @Test
     public void constructor_invalidNote_throwsIllegalArgumentException() {
-        String invalidNote = "a".repeat(201);
+        String invalidNote = "a".repeat(501);
         assertThrows(IllegalArgumentException.class, Note.MESSAGE_LENGTH_CONSTRAINTS, ()
                 -> new Note(invalidNote));
     }
@@ -33,10 +33,10 @@ public class NoteTest {
 
         assertTrue(Note.isValidNote(""));
         assertTrue(Note.isValidNote("prepare for behavioral round"));
-        assertTrue(Note.isValidNote("a".repeat(200)));
+        assertTrue(Note.isValidNote("a".repeat(500)));
         assertTrue(Note.isValidNote("Interview at 10am on 2025-12-22."));
 
-        assertFalse(Note.isValidNote("a".repeat(201)));
+        assertFalse(Note.isValidNote("a".repeat(501)));
         assertFalse(Note.isValidNote("hello🙂"));
     }
 

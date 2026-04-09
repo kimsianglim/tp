@@ -263,7 +263,7 @@ Adds a note to an existing application in LockedIn.
 - `INDEX` must be a positive integer.
 - `NOTE` can contain English letters, numbers, spaces, and these symbols:
   `` ` ~ ! @ # $ % ^ & * ( ) - _ = + [ { ] } \ | ; : ' " , < . > / ? ``
-- `NOTE` must not be blank and must not exceed 200 characters.
+- `NOTE` must not be blank and must not exceed 500 characters.
 - If the selected application already has a note, the existing note is replaced by the new note.
 - Notes can be used to store reminders, interview details, recruiter names, deadlines, or any other application-related information.
 

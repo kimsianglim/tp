@@ -55,7 +55,7 @@ public class NoteCommandParserTest {
 
     @Test
     public void parse_noteTooLong_throwsParseException() {
-        String longNote = "a".repeat(201);
+        String longNote = "a".repeat(501);
         assertParseFailure(parser, "1 " + longNote, Note.MESSAGE_LENGTH_CONSTRAINTS);
     }
 

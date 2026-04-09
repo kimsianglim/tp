@@ -21,7 +21,7 @@ public class ParserUtilTest {
     private static final String INVALID_URL = "invalid_url";
     private static final String INVALID_APPLICATION_DATE = "2026/03/09";
     private static final String INVALID_STATUS = "Pending";
-    private static final String INVALID_NOTE_TOO_LONG = "a".repeat(201);
+    private static final String INVALID_NOTE_TOO_LONG = "a".repeat(501);
     private static final String INVALID_NOTE_CHARACTERS = "hello🙂";
 
     private static final String VALID_COMPANY = "Rachel  Walker & Co.";

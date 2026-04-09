@@ -47,18 +47,18 @@ public class NoteCommand extends Command {
         this.hasNoteText = true;
     }
 
+    private NoteCommand(Index targetIndex, Note note, boolean hasNoteText) {
+        this.targetIndex = targetIndex;
+        this.note = note;
+        this.hasNoteText = hasNoteText;
+    }
+
     /**
      * Creates a command with missing note text so execute() can validate index first.
      */
     public static NoteCommand withoutNote(Index targetIndex) {
         requireNonNull(targetIndex);
         return new NoteCommand(targetIndex, Note.EMPTY, false);
-    }
-
-    private NoteCommand(Index targetIndex, Note note, boolean hasNoteText) {
-        this.targetIndex = targetIndex;
-        this.note = note;
-        this.hasNoteText = hasNoteText;
     }
 
     @Override

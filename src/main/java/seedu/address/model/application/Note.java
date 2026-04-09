@@ -5,13 +5,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a note attached to an application.
- * Guarantees: immutable; length is at most 200 characters.
+ * Guarantees: immutable; length is at most 500 characters.
  */
 public class Note {
 
-    public static final int MAX_LENGTH = 200;
+    public static final int MAX_LENGTH = 500;
     public static final String MESSAGE_LENGTH_CONSTRAINTS =
-            "Note must be at most 200 characters.";
+            "Note must be at most 500 characters.";
     public static final String MESSAGE_CONSTRAINTS =
             "Note can only contain English letters, numbers, spaces, "
                     + "and these symbols: ` ~ ! @ # $ % ^ & * ( ) - _ = + [ { ] } \\ | ; : ' \" , < . > / ?";
