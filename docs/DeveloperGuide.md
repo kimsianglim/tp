@@ -220,7 +220,7 @@ Behavior:
 
 Validation:
 
-* `NoteCommandParser` parses `note INDEX NOTE`. Rather than rejecting an empty note at parse time, it creates a `NoteCommand.withoutNote()` sentinel object so that `execute()` can check index bounds first and surface the more actionable error. Only if the index is valid does the command throw the "note cannot be empty" error.
+* `NoteCommandParser` parses `note INDEX NOTE` and rejects empty note text.
 * `ClearNoteCommandParser` only accepts a single index argument.
 
 ### Copy URL feature (`copy`)
