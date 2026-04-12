@@ -395,7 +395,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-* 2d. The provided URL is invalid, does not begin with http:// or https://
+* 2d. The provided URL is invalid.
 
     * 2d1. LockedIn shows an error message indicating that the URL format is invalid.
 

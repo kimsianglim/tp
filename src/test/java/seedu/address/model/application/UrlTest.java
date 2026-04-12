@@ -32,6 +32,7 @@ public class UrlTest {
         assertFalse(Url.isValidUrl("www.google.com")); // missing protocol
         assertFalse(Url.isValidUrl("ftp://example.com")); // wrong protocol
         assertFalse(Url.isValidUrl("https:// hello.com")); // space after protocol
+        assertFalse(Url.isValidUrl("https://www.goo gle.com")); // space in middle of url
 
         // valid urls
         assertTrue(Url.isValidUrl("https://www.google.com"));

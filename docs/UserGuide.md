@@ -243,7 +243,7 @@ Adds a new application to LockedIn.
 * Company and role comparisons are case-insensitive. For example, `Google` and `GOOGLE` are treated as the same company.
 * `APPLICATION_DATE` must be a valid date in the format `yyyy-MM-dd`.
 * If `d/APPLICATION_DATE` is omitted, LockedIn uses the current date by default.
-* `URL`, if provided, must start with `http://` or `https://`.
+* `URL`, if provided, must start with `http://` or `https://` and must not contain spaces.
 * If `s/STATUS` is omitted, LockedIn uses `Applied` by default.
 * Duplicate applications have the same company, role, and application date. LockedIn rejects duplicate applications.
 
@@ -285,7 +285,7 @@ Edits an existing application in LockedIn.
 * `COMPANY` must be at most 100 characters long.
 * `ROLE` must be at most 100 characters long.
 * `APPLICATION_DATE` must be a valid date in the format `yyyy-MM-dd`.
-* `URL`, if provided, must start with `http://` or `https://`.
+* `URL`, if provided, must start with `http://` or `https://` and must not contain spaces.
 * If the edited values make the application a duplicate of an existing one, the edit is rejected.
 
 **Examples**
