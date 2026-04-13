@@ -362,7 +362,7 @@ For date fields, it can either find exact dates or find dates within a range (in
   Example: `c/google` matches `Google`.
 * Status keywords are also case-insensitive. For example, `find s/applied` and `find s/APPLIED` are both valid.
 * For company, role, URL, and status, if multiple keywords are provided in the same field, applications matching any one of those keywords in that field will be returned.
-   Example: `find s/applied interview` returns applications with status `Applied` or `Interview`.
+  Example: `find s/applied interview` returns applications with status `Applied` or `Interview`.
 * For URL fields, the keyword must match exactly as stored, including characters such as trailing slashes (`/`). For example, `https://www.example.com` does not match `https://www.example.com/`. This exact-match behavior is by design to ensure precise URL identification in the application database.
 * If multiple fields are specified, applications must match all those fields.
 * `d/START_DATE:END_DATE` returns applications whose application dates fall within the range, inclusive.
