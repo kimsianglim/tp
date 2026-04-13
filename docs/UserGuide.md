@@ -243,7 +243,7 @@ Adds a new application to LockedIn.
 * Company and role comparisons are case-insensitive. For example, `Google` and `GOOGLE` are treated as the same company.
 * `APPLICATION_DATE` must be a valid date in the format `yyyy-MM-dd`.
 * If `d/APPLICATION_DATE` is omitted, LockedIn uses the current date by default.
-* `URL`, if provided, must start with `http://` or `https://`.
+* `URL`, if provided, must start with `http://` or `https://`, must not be blank, and must not contain spaces.
 * Status input is case-insensitive. For example, `s/applied`, `s/Applied`, and `s/APPLIED` are all accepted.
 * If `s/STATUS` is omitted, LockedIn uses `Applied` by default.
 * Duplicate applications have the same company, role, and application date. LockedIn rejects duplicate applications.
@@ -286,7 +286,7 @@ Edits an existing application in LockedIn.
 * `COMPANY`, if provided, must be at most 100 characters long.
 * `ROLE`, if provided, must be at most 100 characters long.
 * `APPLICATION_DATE`, if provided, must be a valid date in the format `yyyy-MM-dd`.
-* `URL`, if provided, must start with `http://` or `https://`.
+* `URL`, if provided, must start with `http://` or `https://`, must not be blank, and must not contain spaces.
 * `STATUS`, if provided, must be one of: `Applied`, `OA`, `Interview`, `Offered`, `Rejected`, `Withdrawn`.
 * `STATUS` input is case-insensitive. For example, `s/offered`, `s/Offered`, and `s/OFFERED` are all accepted.
 * If the edited values make the application a duplicate of an existing one, the edit is rejected.
@@ -362,6 +362,7 @@ For date fields, it can either find exact dates or find dates within a range (in
   Example: `c/google` matches `Google`.
 * Status keywords are also case-insensitive. For example, `find s/applied` and `find s/APPLIED` are both valid.
 * For company, role, URL, and status, applications matching at least one keyword in the same field are returned.
+* For URL fields, the keyword must match exactly as stored, including characters such as trailing slashes (`/`). For example, `https://www.example.com` does not match `https://www.example.com/`.
 * If multiple fields are specified, applications must match all those fields.
 * `d/START_DATE:END_DATE` returns applications whose application dates fall within the range, inclusive.
 * `START_DATE` must be earlier than or equal to `END_DATE`.
@@ -470,6 +471,7 @@ Clears the note of the specified application.
 * `INDEX` refers to the index number shown in the displayed list.
 * `INDEX` must be a positive integer.
 * The selected application's note is reset to an empty note.
+* If the selected application has an empty note, LockedIn shows an error message.
 
 **Examples**
 
@@ -502,6 +504,7 @@ Copies the URL of an application to your system clipboard.
 * `INDEX` refers to the index number shown in the displayed list.
 * `INDEX` must be a positive integer.
 * The selected application must already contain a URL.
+* If the selected application has no URL, LockedIn shows an error message.
 
 **Examples**
 
@@ -511,7 +514,7 @@ Copies the URL of an application to your system clipboard.
 **What you should expect**
 
 * If the selected application has a URL, LockedIn copies it to your clipboard.
-* If the selected application has no URL, LockedIn shows an error message.
+
 
 ---
 

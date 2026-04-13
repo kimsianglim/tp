@@ -17,7 +17,7 @@ public class Url {
      * The first character of the URL must not be a whitespace and starts with http or https,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^(http|https)://[^\\s].*$";
+    public static final String VALIDATION_REGEX = "^(http|https)://\\S+$";
 
     public final String value;
 
